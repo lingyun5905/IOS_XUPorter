@@ -1,0 +1,35 @@
+{
+    "group": "CONCOM",
+    "libs": [],
+    "frameworks": ["StoreKit.framework"],
+    "headerpaths": ["iOS/"],                    
+    "files":   [],
+    "folders": ["iOS/"],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
+    "compiler_flags": [],
+    "linker_flags": [],
+	"plist": {
+        "UIApplicationShortcutItems" : [
+            {
+                "UIApplicationShortcutItemIconFile": "icon_mission",
+                "UIApplicationShortcutItemTitle": "每日任务",
+				"UIApplicationShortcutItemType": "MissionType",
+            },
+            {
+                "UIApplicationShortcutItemIconFile": "icon_quest",
+                "UIApplicationShortcutItemTitle": "任务",
+				"UIApplicationShortcutItemType": "QuestType",
+            },
+            {
+                "UIApplicationShortcutItemIconFile": "icon_mail",
+                "UIApplicationShortcutItemTitle": "邮箱",
+				"UIApplicationShortcutItemType": "MailType",
+            },
+            {
+                "UIApplicationShortcutItemIconFile": "icon_store",
+                "UIApplicationShortcutItemTitle": "商店",
+				"UIApplicationShortcutItemType": "StoreType",
+            },
+        ],
+    },
+}

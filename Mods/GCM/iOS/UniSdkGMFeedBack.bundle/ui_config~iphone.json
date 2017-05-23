@@ -1,0 +1,37 @@
+{
+"mainViewFrameH":[0, 0, 1, 1],
+"mainViewFrameV":[0, 0, 1, 1],
+    
+"webViewRoundCorner":0,
+    
+"webViewOffsetH":[0, 0, 0, 0],
+"webViewOffsetV":[0, 0, 0, 0],
+    
+"closeBtnPosH":0,
+"closeBtnPosV":0,
+    
+"backBtnPosH":-1,
+"backBtnPosV":-1,
+    
+"mainBgStratch":[6, 6, 4, 4],
+    
+"alertBgStrach":[20, 20, 20, 20],
+"alertSpliterStrach":[5, 0, 71, 9],
+"alertBtnStrach":[0, 0, 0, 0],
+
+"alertBtnFontColor":[255, 255, 255],
+
+"alertTipsFontColor1":[255, 255, 255],
+"alertTipsFontColor2":[200, 200, 200],
+    
+"navBarStratchH":[4, 4, 8, 8],
+"navBarStratchV":[4, 4, 8, 8],
+    
+"floatViewStrach":[12, 6, 53, 60],
+"floatViewOffsetL":[4, 0],
+"floatViewOffsetR":[4, 0],
+"floatMenuOffset":[12, 6, 53, 60],
+    
+"floatViewFontColor":[255, 255, 255],
+"floatViewFontSize":20,
+}

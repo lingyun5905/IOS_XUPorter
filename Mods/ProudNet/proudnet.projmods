@@ -1,0 +1,11 @@
+{
+    "group": "PROUNDNET",
+    "libs": [],
+    "frameworks": [],
+    "headerpaths": ["iOS/"],                    
+    "files":   [],
+    "folders": ["iOS/"],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
+    "compiler_flags": [],
+    "linker_flags": [],
+}

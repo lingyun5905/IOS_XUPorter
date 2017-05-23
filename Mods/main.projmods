@@ -1,0 +1,20 @@
+{
+    "group": "Store",
+    "libs": ["libsqlite3.0.tbd","libz.tbd","libstdc++.tbd","libiPhone-lib.a"],
+    "frameworks":[ "ImageIO.framework:true","StoreKit.framework:true","CoreTelephony.framework:true","MessageUI.framework:true","AdSupport.framework:true","Accelerate.framework:true","Security.framework:true","MobileCoreServices.framework:true","CoreTelephony.framework:true","AudioToolbox.framework:true","AVFoundation.framework:true","CFNetwork.framework:true","CoreGraphics.framework:true","CoreLocation.framework:true","CoreMedia.framework:true","CoreMotion.framework:true","CoreVideo.framework:true","Foundation.framework:true","GameKit.framework:true","iAd.framework:true","MediaPlayer.framework:true","OpenAL.framework:true","OpenGLES.framework:true","QuartzCore.framework:true","SystemConfiguration.framework:true","UIKit.framework:true"],
+    "headerpaths": [],                    
+    "files":   [],
+    "folders": [],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$", "^.*.svn$"],
+    "compiler_flags": [],
+    "linker_flags": [],
+	"plist": {
+        "NSAppTransportSecurity" : [
+            {
+                "NSAllowsArbitraryLoads": true,
+            }
+        ],
+		"UIRequiresPersistentWiFi" : true,
+		
+    },
+}

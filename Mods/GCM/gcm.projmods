@@ -1,0 +1,11 @@
+{
+    "group": "GCM",
+    "libs": [],
+    "frameworks":[],
+    "headerpaths": ["iOS/"],                    
+    "files":   ["iOS/libNOS.a","framework/NtMiniDownloader.framework","framework/UniSdkGMFeedBack.framework"],
+    "folders": ["iOS/"],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$", "^.*.svn$"],
+    "compiler_flags": [],
+    "linker_flags": [],
+}

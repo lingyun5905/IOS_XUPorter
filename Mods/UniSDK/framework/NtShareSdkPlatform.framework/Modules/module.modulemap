@@ -1,0 +1,6 @@
+framework module NtShareSdkPlatform {
+  umbrella header "NtShareSdkPlatform.h"
+
+  export *
+  module * { export * }
+}

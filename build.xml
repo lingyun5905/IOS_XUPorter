@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="build" default="ios" basedir=".">
+  <property environment="env"/>
+  <property name="RAW_BUILD_NUMBER" value="${env.BUILD_NUMBER}"/>
+  <script language="javascript">
+  <![CDATA[
+    var buildNum = parseInt(project.getProperty("RAW_BUILD_NUMBER"))
+    var minorBuildNumber = buildNum % 100;
+    var majorBuildNumber = (Math.floor(buildNum / 100)) % 100;
+    var uberBuildNumber = (Math.floor(buildNum / 10000)) % 100;
+    project.setProperty("minorBuildNumber", minorBuildNumber);
+    project.setProperty("majorBuildNumber", majorBuildNumber);
+    project.setProperty("uberBuildNumber", uberBuildNumber);
+  ]]>
+  </script>
+  <property name="VERSION_STRING" value="${uberBuildNumber}.${majorBuildNumber}.${minorBuildNumber}"/>
+  
+  <property file="settings.properties"/>
+  
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/> 
+  
+  <available file="${unity.bin}" property="mac.exist" type="file" /> 
+  <available file="${win_unity.bin}" property="win.exist" type="file" /> 
+  <if>
+      <equals arg1="${mac.exist}" arg2="true" />
+      <then>
+			<property name="U3d_Bin" value = "${unity.bin}"/>
+      </then>
+      <else>
+			<property name="U3d_Bin" value = "${win_unity.bin}"/>
+      </else>
+  </if>
+  <echo message="unity Path: ${U3d_Bin}"/>
+  
+  <property name="dev.dir.absolute" location="${dev.dir}"/>
+  <tstamp>
+    <format property="TODAY_STAMP" pattern="yyyy.MM_dd_HH_mm_ss" locale="cn"/>
+  </tstamp>
+  <property name="VERSION_NUM" value="${uberBuildNumber}.${majorBuildNumber}.${minorBuildNumber}"/>
+  <property name="VERSION_STRING" value="honorbound_${VERSION_NUM}"/>
+  <property name="neteaseShareHeader" value="UnityAppController.mm"/>
+  
+  <target name="ios" depends="compile-ios" />
+  
+  <target name="clean">
+    <echo message="Cleaning Build Space"/>
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+	<echo>${TODAY_STAMP}</echo>
+    <if>
+      <equals arg1="${mac.exist}" arg2="true" />
+      <then>
+            <exec executable="killall" >  
+                <arg line="-9 Unity"/>
+            </exec>
+            <exec executable="killall" >  
+                <arg line="-9 Xcode"/>
+            </exec>
+            <exec executable="killall" >  
+                <arg line="-9 xcodebuild"/>
+            </exec>
+      </then>
+      <else>
+            <exec executable="cmd.exe" >  
+                <arg line="taskkill /f /im Unity.exe"/>
+            </exec>
+            <exec executable="cmd.exe" >  
+                <arg line="taskkill /f /im Xcode.exe"/>
+            </exec>
+            <exec executable="cmd.exe" >  
+                <arg line="taskkill /f /im xcodebuild.exe"/>
+            </exec>
+      </else>
+    </if>
+
+	<if>
+	 <equals arg1="${cleanDir}" arg2="1" />
+	 <then>
+         <exec executable="svn" >  
+             <arg line="revert -R ${basedir}"/>
+         </exec>
+         
+         <exec executable="svn" >  
+             <arg line="cleanup ${basedir}"/>
+         </exec>
+	     <exec executable="svn" > 
+             <arg line="update ${basedir}"/>
+         </exec>
+	 </then>
+	</if>
+  </target>
+  
+  <target name="do_exclude">
+    <if>
+      <equals arg1="${mac.exist}" arg2="true" />
+      <then>
+			<echo message="rm -rf ${basedir}/${exclude.key}"/>
+			<exec executable="rm" > 
+				<arg line="-rf ${basedir}/${exclude.key}"/>
+			</exec>
+      </then>
+      <else>
+			<echo message="cmd.exe /c rm -rf ${basedir}/${exclude.key}"/>
+			<exec executable="cmd.exe" > 
+				<arg line="/c rm -rf ${basedir}/${exclude.key}"/>
+			</exec>
+      </else>
+    </if>
+  </target>
+  
+  <target name="foreach_exculde" depends="clean">
+      <foreach list="${exclude.key1},${exclude.key2},${exclude.key3},${exclude.key4},${exclude.key5},${exclude.key6},${exclude.key7},${exclude.key8},${exclude.key9},${exclude.key10},${exclude.key11},${exclude.key12},${exclude.key13},${exclude.key14},${exclude.key15},${exclude.key16},${exclude.key17},${exclude.key18},${exclude.key19},${exclude.key20},${exclude.key21},${exclude.key22},${exclude.key23},${exclude.key24},${exclude.key25},${exclude.key26},${exclude.key27},${exclude.key28},${exclude.key29},${exclude.key30},${exclude.key31},${exclude.key32},${exclude.key33},${exclude.key34},${exclude.key35},${exclude.key36},${exclude.key37},${exclude.key38},${exclude.key39},${exclude.key40},${exclude.key41},${exclude.key42},${exclude.key43},${exclude.key44},${exclude.key45},${exclude.key46},${exclude.key47},${exclude.key48},${exclude.key49},${exclude.key50},${exclude.key51},${exclude.key52},${exclude.key53},${exclude.key54},${exclude.key55},${exclude.key56},${exclude.key57},${exclude.key58},${exclude.key59},${exclude.key60},${exclude.key61},${exclude.key62},${exclude.key63},${exclude.key64},${exclude.key65},${exclude.key66},${exclude.key67},${exclude.key68},${exclude.key69},${exclude.key70},${exclude.key71},${exclude.key72},${exclude.key73},${exclude.key74},${exclude.key75},${exclude.key76},${exclude.key77},${exclude.key78},${exclude.key79},${exclude.key80},${exclude.key81},${exclude.key82},${exclude.key83},${exclude.key84},${exclude.key85},${exclude.key86},${exclude.key87},${exclude.key88},${exclude.key89},${exclude.key90},${exclude.key91},${exclude.key92},${exclude.key93},${exclude.key94},${exclude.key95},${exclude.key96},${exclude.key97},${exclude.key98},${exclude.key99},${exclude.key100},${exclude.key101},${exclude.key102},${exclude.key103}" target="do_exclude" param="exclude.key" delimiter=",">
+      </foreach>
+  </target>
+  
+  <target name="do_include">
+	<echo message="svn update ${basedir}/${include.key}"/>
+  	<exec executable="svn" > 
+        <arg line="update ${basedir}/${include.key}"/>
+    </exec>
+	<exec executable="svn" > 
+        <arg line="update ${basedir}/${include.key}.meta"/>
+    </exec>
+  </target>
+  
+  <target name="foreach_inculde" depends="foreach_exculde">
+     <exec executable="svn" >  <!-- 直接调用 svn.exe,注意svn.exe要能够通过path访问到-->
+        <arg line="cleanup ${basedir}"/>  <!-- 设置svn 的命令行参数 -->
+     </exec>
+     <foreach list="${include.key1},${include.key2},${include.key3},${include.key4},${include.key5},${include.key6},${include.key7},${include.key8},${include.key9},${include.key10},${include.key11},${include.key12}" target="do_include" param="include.key" delimiter=",">
+     </foreach>
+  </target>
+  
+  <target name="dir.check" depends="foreach_inculde">
+	<condition property="dir.exists">
+		<available file="${publish.dir}" type="dir"/>
+	</condition>
+  </target>
+  
+  <target name="doExists" depends="dir.check" if="dir.exists">
+    <echo>${publish.dir} exists</echo>
+  </target>
+
+  <target name="doUnExists" depends="dir.check" unless="dir.exists">
+    <echo>${publish.dir} missing</echo>
+	<mkdir dir="${publish.dir}"/>
+  </target>
+  
+  <target  name="prepare_ios" depends="doExists,doUnExists">
+	 <echo message="copy ios related resource and code"/>
+	 <delete dir="${basedir}/Assets/Editor/Mods"/>
+	 <delete file="${basedir}/Assets/Editor/Mods.meta"/>
+     <delete dir="${basedir}/Assets/Editor/ReplayKit"/>
+	 <delete file="${basedir}/Assets/Editor/ReplayKit.meta"/>
+	 <delete dir="${basedir}/Assets/Editor/XUPorter"/>
+	 <delete dir="${basedir}/Assets/Plugins/iOS/ProudNetInclude"/>
+	 <delete file="${basedir}/Assets/Plugins/iOS/ProudNetInclude.meta"/>
+	 <!--<mkdir dir="${basedir}/Assets/Editor/XUPorter"/>-->
+	 <exec executable="cp"  failonerror="true">
+		 <arg line="-rf"/>
+		 <arg line="${basedir}/XUPorter ${basedir}/Assets/Editor"/>
+	 </exec>
+  </target>
+  
+  <target name="toXcode"  depends="prepare_ios">
+    <echo message="switch platform to IOS"/>
+    <exec executable="${U3d_Bin}" failonerror="true">
+      <arg line="-projectPath ${dev.dir.absolute}"/>
+      <arg line="-executeMethod CommandBuilder.SwitchActiveBuildiOS"/>
+	  <arg line="-logFile ${build.dir}/0.log"/>
+      <arg line="-batchmode"/>
+      <arg line="-quit"/>
+    </exec>
+	
+    <echo message="according version to modify ClientInfo.cs"/>
+	<script language="javascript">
+       <![CDATA[
+         var buildNum = parseInt(project.getProperty("autoIncrementVersion"))
+		 var versionstr = project.getProperty("Version");
+		 var arr = versionstr.split(".");
+         var minorNumber = arr[0];
+         var majorNumber = arr[1];
+         var uberNumber = parseInt(arr[2]);
+		 if(buildNum>0)
+		 {
+			uberNumber++;
+		 }
+         project.setProperty("minorNumber", minorNumber);
+         project.setProperty("majorNumber", majorNumber);
+         project.setProperty("uberNumber", uberNumber);
+       ]]>
+    </script>
+	<property name="_Version" value="${minorNumber}.${majorNumber}.${uberNumber}"/>
+    <exec executable="${U3d_Bin}" failonerror="true">
+      <arg line="-projectPath ${dev.dir.absolute}"/>
+      <arg line="-executeMethod CommandBuilder.ConfigClientInfo"/>
+	  <arg line="-_Version '${_Version}'"/>
+	  <arg line="-_VersionCode '${VersionCode}'"/>
+	  <arg line="-logFile ${build.dir}/1.log"/>
+      <arg line="-batchmode"/>
+      <arg line="-quit"/>
+    </exec>
+	<exec executable="svn"  failonerror="true"> 
+        <arg line="commit ${basedir}/Assets/Plugins/Common/ClientInfo.cs -m 'modify ClientInfo.cs version'"/>
+    </exec>
+	
+    <echo message="conifg project setttings"/>
+	<script language="javascript">
+       <![CDATA[
+         var preType = (project.getProperty("PreBuildType")).toLowerCase();
+		 var symbol = project.getProperty("DefineSymbolNetEaseDev");
+		 switch(preType){
+			case "neteasedev":
+			symbol = project.getProperty("DefineSymbolNetEaseDev");
+			break;
+			case "neteaseqa":
+			symbol = project.getProperty("DefineSymbolNetEaseQA");
+			break;
+			case "concomdev":
+			symbol = project.getProperty("DefineSymbolCONCOMDev");
+			break;
+			case "concomqa":
+			symbol = project.getProperty("DefineSymbolCONCOMQA");
+			break;
+			case "test":
+			symbol = project.getProperty("DefineSymbolTest");
+			break;
+		 }
+         project.setProperty("DefineSymbol", symbol);
+       ]]>
+    </script>
+    <exec executable="${U3d_Bin}" failonerror="true">
+      <arg line="-projectPath ${dev.dir.absolute}"/>
+      <arg line="-executeMethod CommandBuilder.ConfigProjectSettting"/>
+	  <arg line="-DefineSymbol ${DefineSymbol}"/>
+	  <arg line="-Company '${COMPANY}'"/>
+	  <arg line="-Product '${APP_NAME}'"/>
+	  <arg line="-BundleID '${BUNDLEID}'"/>
+	  <arg line="-_Version '${_Version}'"/>
+	  <arg line="-_VersionCode '${VersionCode}'"/>
+	  <arg line="-logFile ${build.dir}/2.log"/>
+      <arg line="-batchmode"/>
+      <arg line="-quit"/>
+     </exec>
+   </target>
+	
+	
+   <target name="compile-ios" depends="toXcode">
+    <echo message="unlock keychain"/>
+	<exec executable="${security.bin}" failonerror="true">
+      <arg value="unlock-keychain"/>
+      <arg line="-p ${keychain.password}"/>
+    </exec>
+	<echo message="xcode project clean"/>
+    <exec executable="${xcode.bin}" failonerror="true">
+        <arg line="-project ${build.dir}/iPhone/Unity-iPhone.xcodeproj clean"/>
+		<arg line="-configuration Release"/>
+		<arg line="-alltargets"/>
+    </exec>
+	
+    <echo message="${xcode.bin} ${xcode.bin} -project ${build.dir}/iPhone/Unity-iPhone.xcodeproj -scheme Unity-iPhone -configuration Release archive -archivePath ${build.dir}/iPhone/Archive"/>
+    <exec executable="${xcode.bin}" output="${build.dir}/achieve.log" failonerror="true">
+      <arg line="archive -project ${build.dir}/iPhone/Unity-iPhone.xcodeproj"/>
+	  <arg line="-scheme Unity-iPhone"/>
+	  <arg line="-destination generic/platform=iOS"/>
+	  <arg line="-archivePath ${build.dir}/iPhone/Archive"/>
+	  <arg line="-configuration Release"/>
+      <!--<arg line='DEBUG_INFORMATION_FORMAT=dwarf-with-dsym'/>-->
+      <!--<arg line='DWARF_DSYM_FILE_SHOULD_ACCOMPANY_PRODUCT=YES'/>-->
+	  <!--<arg line="PROVISIONING_PROFILE ${provisioning.guid}"/>-->
+	  <!--<arg line='CODE_SIGN_IDENTITY="${codesign.identity}"-->
+    </exec>
+    <echo message="${xcode.bin} -exportArchive -exportFormat ipa -archivePath ${build.dir}/iPhone/Archive -exportPath ${build.dir}/iPhone/build/Release-iphoneos/${APP_NAME}.ipa -exportProvisioningProfile ${provisioning.guid}"/>
+    <exec executable="${xcode.bin}"  output="${build.dir}/exportIPA.log"  failonerror="true">
+      <arg line="-exportArchive"/>
+	  <arg line="-exportOptionsPlist exprotOptionsPlist.plist"/>
+	  <arg line="-archivePath ${build.dir}/iPhone/Archive.xcarchive"/>
+	  <arg line="-exportPath ${build.dir}/iPhone/build/Release-iphoneos/"/>
+      <!--<arg line="-exportProvisioningProfile ${provisioning.guid}"/>-->
+    </exec>
+	<copy file="${build.dir}/iPhone/build/Release-iphoneos/Unity-iPhone.ipa" tofile="${publish.dir}/${APP_NAME}_${VERSION_STRING}_${TODAY_STAMP}.ipa"/>
+  </target>
+ 
+</project>

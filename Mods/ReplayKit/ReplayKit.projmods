@@ -1,0 +1,12 @@
+{
+    "group": "Services",
+    "libs": [],
+    "frameworks": ["framework/ReplayKit.framework:true"],
+    "headerpaths": [],                    
+    "files": [],
+    "folders": [],
+    "excludes": ["^.*.DS_Store$","^.*.meta$", "^.*.mdown^", "^.*.pdf$", "^.*.svn$"],
+    "buildSettings": {
+    	"ENABLE_BITCODE": "NO"
+    }
+}

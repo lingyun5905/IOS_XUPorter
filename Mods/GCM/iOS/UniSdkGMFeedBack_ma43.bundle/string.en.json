@@ -1,0 +1,14 @@
+{
+    "CAMERA_NOT_AVAILABLE_MSG":"系统找不到摄像头",
+    "CREATE_IMGFILE_FAILED_MSG":"保存图片文件失败",
+    "ISNOT_IMAGE_FILE_MSG":"选择内容不是图片",
+    "PHOTOLIBRARY_NOT_AVAILABLE_MSG":"sadfasdfasdf",
+    "ASButtonTitleCancel":"cancel",
+    "ASButtonTitleCamera":"camera",
+    "ASButtonTitleLibrary":"from ???",
+    "float_view_close":"close",
+    "float_alert_tittle1":"close float ball",
+    "float_alert_tittle2":"(testtesttest)",
+    "float_alert_cancel":"Cancel",
+    "float_alert_ok":"OK"
+}

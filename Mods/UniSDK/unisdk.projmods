@@ -1,0 +1,23 @@
+{
+    "group": "UNISDK",
+    "libs": [],
+    "frameworks":[ "StoreKit.framework"],
+    "headerpaths": ["iOS/"],                    
+    "files":   ["iOS/libWeiboSDK.a","iOS/libWeChatSDK.a","iOS/libYixinSDK_V2.4.6.a","iOS/libreachability.a","iOS/ntshare_data","framework/NtUniSdkNetEase2.framework","framework/NtShareSdkPlatform.framework","framework/TencentOpenAPI.framework","libz.dylib","libstdc++.dylib","libsqlite3.dylib","libiconv.2.dylib",],
+    "folders": ["iOS/"],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$", "^.*.svn$"],
+    "compiler_flags": [],
+    "linker_flags": ["-ObjC"],
+	"embed_binaries": [],
+	"plist": {
+        "CFBundleURLTypes" : [
+            {
+                "CFBundleTypeRole": "Editor",
+                "CFBundleURLSchemes":["wxab01943ee42420d7"]
+            }
+        ],
+		"LSApplicationQueriesSchemes" : [
+			"weixin"
+		],
+    },
+}

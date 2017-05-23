@@ -1,0 +1,43 @@
+{
+	"Name":"NetEase2",
+        "Macros":"TARGET_FRAMEWORK_NAME=NtUniSdkNetEase2",
+        "Package":"NtUniSdkNetEase2.framework",
+        "Resources":
+        [
+                "NeteaseMpay.bundle",
+                "WeiboSDK.bundle",
+                "NeteaseHotfixResource.bundle",
+                "NtUnisdk.bundle",
+                "SKIN_BLACK.bundle",
+                "SKIN_CHINESE_BLACK.bundle",
+                "SKIN_CHINESE_WHITE.bundle",
+                "SKIN_DEFAULT.bundle"
+        ],
+        "Frameworks":
+        [
+                "StoreKit.framework",
+                "NtUniSdkNetEase2.framework",
+        ],
+        "Optional":
+        [
+
+        ],
+        "Dylibs":
+        [
+        	"libWeiboSDK.a",
+                "libWeChatSDK.a",
+                "libYixinSDK_V2.2.a",
+                "libz.dylib",
+                "libstdc++.dylib",
+                "libsqlite3.dylib",
+                "libreachability.a"
+        ],
+        "Configure":
+        [
+                "netease.data"
+        ],
+        "ldFlags":
+        [
+                "-ObjC"
+        ]
+}
